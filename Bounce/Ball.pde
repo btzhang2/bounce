@@ -20,10 +20,10 @@ class Ball {
   void move() {
     x = x + dx;
     y = y + dy;
-    fill(c);  
-    ellipse(x, y, rad, rad);
-    bounce();
+    fill(c);
     react();
+    bounce();
+    ellipse(x, y, rad, rad);
   }
 
   void bounce() {
@@ -37,13 +37,19 @@ class Ball {
 
   void react() {
     if (state == 1) {
+      if (get((int)x, (int)y) != color(0) &&
+        Math.abs(x - mX) < 200 &&
+        Math.abs(y - mY) < 200) {
+        state = 2;
+      }
+    } else if (state == 2) {
       dx = 0;
       dy = 0;
       rad += 2;
       if (rad > 200 + random(200)) {
-        state = 2;
+        state = 3;
       }
-    } else if (state == 2) {
+    } else if (state == 3) {
       if (rad > 0) {
         rad -= 2;
       }
